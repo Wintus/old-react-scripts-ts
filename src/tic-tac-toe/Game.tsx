@@ -30,7 +30,10 @@ export class Game extends React.Component<any, IGameState> {
   }
 
   render() {
-    const status = `Next player: ${this.nextPlayer()}`;
+    const winner = this.winner();
+    const status = winner
+      ? `Winner: ${winner}`
+      : `Next player: ${this.nextPlayer()}`;
 
     return (
       <div className="game">
@@ -46,6 +49,11 @@ export class Game extends React.Component<any, IGameState> {
   }
 
   protected handleClick: (i: number) => OnClick = i => () => {
+    // guard: filled or game-over
+    if (this.squares()[i] || this.winner()) {
+      return;
+    }
+
     const squares = [...this.squares()] as Squares; // copy
     squares[i] = this.nextPlayer();
     this.setState({ squares, xIsNext: !this.state.xIsNext });
@@ -58,4 +66,31 @@ export class Game extends React.Component<any, IGameState> {
   private nextPlayer(): OX {
     return Players[Number(this.state.xIsNext)];
   }
+
+  private winner() {
+    return calculateWinner(this.squares());
+  }
+}
+
+export function calculateWinner(squares: Squares): OX {
+  const lines = [
+    // -
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    // |
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    // x
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+
+  const found = lines
+    .map(([a, b, c]) => [squares[a], squares[b], squares[c]])
+    .filter(vs => vs.some(v => v !== null)) // non-null
+    .find(vs => vs.every(v => v === vs[0])); // all same
+
+  return found ? found[0] : null;
 }
