@@ -6,16 +6,22 @@ export interface IOnClick {
   onClick: () => void;
 }
 
-export class Board extends React.Component<any, { squares: Value[] }> {
+interface IState {
+  squares: Value[];
+  xIsNext: boolean;
+}
+
+export class Board extends React.Component<any, IState> {
   constructor(props: Readonly<any>) {
     super(props);
     this.state = {
-      squares: Array(9).fill(null)
+      squares: Array(9).fill(null),
+      xIsNext: true
     };
   }
 
   render() {
-    const status = "Next player: X";
+    const status = `Next player: ${this.nextValue()}`;
 
     return (
       <div>
@@ -31,7 +37,11 @@ export class Board extends React.Component<any, { squares: Value[] }> {
 
   protected handleClick = (i: number) => () => {
     const squares = [...this.state.squares]; // copy
-    squares[i] = "X";
-    this.setState({ squares });
+    squares[i] = this.nextValue();
+    this.setState({ squares, xIsNext: !this.state.xIsNext });
   };
+
+  protected nextValue(): Value {
+    return this.state.xIsNext ? "X" : "O";
+  }
 }
