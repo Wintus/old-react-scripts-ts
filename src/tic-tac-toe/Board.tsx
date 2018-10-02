@@ -3,7 +3,13 @@ import "./Board.css";
 import { OnClick } from "./Game";
 import { OX, Square } from "./Square";
 
-export type Squares = [OX, OX, OX, OX, OX, OX, OX, OX, OX]; // x9
+// prettier-ignore
+// x9
+export type Squares = [
+  OX, OX, OX,
+  OX, OX, OX,
+  OX, OX, OX
+];
 
 export interface IBoard {
   squares: Squares;
