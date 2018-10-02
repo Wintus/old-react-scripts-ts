@@ -5,7 +5,7 @@ import { OX } from "./Square";
 export type OnClick = () => void;
 
 interface IGameState {
-  squares: Squares;
+  history: Squares[];
   xIsNext: boolean;
 }
 
@@ -18,8 +18,9 @@ export const Players: [OX, OX] = ["O", "X"];
 export class Game extends React.Component<any, IGameState> {
   constructor(props: Readonly<any>) {
     super(props);
+    const squares = Array(9).fill(null) as Squares;
     this.state = {
-      squares: Array(9).fill(null) as Squares,
+      history: [squares],
       xIsNext: true // X first
     };
   }
@@ -34,7 +35,7 @@ export class Game extends React.Component<any, IGameState> {
       <div className="game">
         <div className="game-board">
           <Board
-            squares={this.state.squares}
+            squares={this.squares()}
             gameOver={Boolean(winner)}
             handleClick={i => this.handleClick(i)}
           />
@@ -56,9 +57,11 @@ export class Game extends React.Component<any, IGameState> {
 
       const squares = [...this.squares()] as Squares; // copy
       squares[i] = this.nextPlayer();
+
+      const { history, xIsNext } = this.state;
       this.setState({
-        squares: squares,
-        xIsNext: !this.state.xIsNext
+        history: [...history, squares],
+        xIsNext: !xIsNext
       });
     };
   }
@@ -68,7 +71,8 @@ export class Game extends React.Component<any, IGameState> {
   }
 
   protected squares() {
-    return this.state.squares;
+    const [current] = this.state.history.slice(-1);
+    return current;
   }
 
   protected winner() {
