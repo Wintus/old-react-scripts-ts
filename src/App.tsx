@@ -5,7 +5,7 @@ import logo from "./logo.svg";
 import { Game } from "./tic-tac-toe";
 
 class App extends React.Component {
-  public render() {
+  render() {
     return (
       <div className="App">
         <header className="App-header">
