@@ -13,7 +13,7 @@ export type Squares = [
   ];
 
 interface IGameState {
-  squares: Squares;
+  history: Squares[];
   xIsNext: boolean;
 }
 
@@ -23,8 +23,9 @@ export class Game extends React.Component<any, IGameState> {
   constructor(props: Readonly<any>) {
     super(props);
 
+    const squares = Array(9).fill(null) as Squares;
     this.state = {
-      squares: Array(9).fill(null) as Squares,
+      history: [squares],
       xIsNext: true // X first
     };
   }
@@ -56,11 +57,17 @@ export class Game extends React.Component<any, IGameState> {
 
     const squares = [...this.squares()] as Squares; // copy
     squares[i] = this.nextPlayer();
-    this.setState({ squares, xIsNext: !this.state.xIsNext });
+
+    const { history, xIsNext } = this.state;
+    this.setState({
+      history: [...history, squares],
+      xIsNext: !xIsNext
+    });
   };
 
   private squares() {
-    return this.state.squares;
+    const [current] = this.state.history.slice(-1);
+    return current;
   }
 
   private nextPlayer(): OX {
