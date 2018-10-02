@@ -3,12 +3,8 @@ import { IOnClick } from "./Board";
 
 export type Value = "X" | "O" | null;
 
-export class Square extends React.Component<{ value: Value } & IOnClick> {
-  render() {
-    return (
-      <button className="square" onClick={this.props.onClick}>
-        {this.props.value}
-      </button>
-    );
-  }
-}
+export const Square = ({ value, onClick }: { value: Value } & IOnClick) => (
+  <button className="square" onClick={onClick}>
+    {value}
+  </button>
+);
