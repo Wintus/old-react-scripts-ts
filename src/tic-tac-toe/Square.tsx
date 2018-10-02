@@ -3,10 +3,12 @@ import { OnClick } from "./Game";
 
 export type OX = "X" | "O" | null;
 
-export const Square = ({
-  value,
-  onClick
-}: { value: OX } & { onClick: OnClick }) => (
+interface ISquare {
+  value: OX;
+  onClick: OnClick;
+}
+
+export const Square = ({ value, onClick }: ISquare) => (
   <button className="square" onClick={onClick}>
     {value}
   </button>
