@@ -1,9 +1,12 @@
 import * as React from "react";
-import { IOnClick } from "./Board";
+import { OnClick } from "./Board";
 
 export type OX = "X" | "O" | null;
 
-export const Square = ({ value, onClick }: { value: OX } & IOnClick) => (
+export const Square = ({
+  value,
+  onClick
+}: { value: OX } & { onClick: OnClick }) => (
   <button className="square" onClick={onClick}>
     {value}
   </button>

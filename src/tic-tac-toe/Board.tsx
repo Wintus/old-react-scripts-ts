@@ -2,9 +2,7 @@ import * as React from "react";
 import "./Board.css";
 import { OX, Square } from "./Square";
 
-export interface IOnClick {
-  onClick: () => void;
-}
+export type OnClick = () => void;
 
 interface IState {
   squares: OX[];
@@ -38,17 +36,19 @@ export class Board extends React.Component<any, IState> {
     );
   }
 
-  protected handleClick = (i: number) => () => {
-    const squares = [...this.state.squares]; // copy
+  protected handleClick(i: number): OnClick {
+    return () => {
+      const squares = [...this.state.squares]; // copy
 
-    // guard: filled or game-over
-    if (squares[i] || calculateWinner(squares)) {
-      return;
-    }
+      // guard: filled or game-over
+      if (squares[i] || calculateWinner(squares)) {
+        return;
+      }
 
-    squares[i] = this.nextValue();
-    this.setState({ squares, xIsNext: !this.state.xIsNext });
-  };
+      squares[i] = this.nextValue();
+      this.setState({ squares, xIsNext: !this.state.xIsNext });
+    };
+  }
 
   protected nextValue(): OX {
     return this.state.xIsNext ? "X" : "O";
