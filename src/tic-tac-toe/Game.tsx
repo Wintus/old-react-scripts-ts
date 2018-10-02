@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ChangeEventHandler } from "react";
 import { Board } from "./Board";
 import "./Game.css";
 import { OX } from "./Square";
@@ -38,6 +39,11 @@ export class Game extends React.Component<any, IGameState> {
       ? `Winner: ${winner}`
       : `Next player: ${this.nextPlayer()}`;
 
+    const { history, step } = this.state;
+
+    const onChange: ChangeEventHandler<HTMLInputElement> = event =>
+      this.jumpTo(event.target.valueAsNumber);
+
     return (
       <div className="game">
         <div className="game-board">
@@ -45,8 +51,17 @@ export class Game extends React.Component<any, IGameState> {
         </div>
         <div className="game-info">
           <div className="status">{status}</div>
+          <div className="step">Step #{step}</div>
+          <input
+            type="range"
+            name="slider"
+            value={step}
+            min={0}
+            max={history.length - 1}
+            onChange={onChange}
+          />
           <ol>
-            {this.state.history.map((_, move) => {
+            {history.map((_, move) => {
               const onClick = () => this.jumpTo(move);
               return (
                 <li key={move}>
