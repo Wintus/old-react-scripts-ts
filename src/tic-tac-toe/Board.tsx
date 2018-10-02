@@ -1,20 +1,7 @@
 import * as React from "react";
 import "./Board.css";
-import { OnClick } from "./Game";
-import { OX, Square } from "./Square";
-
-// prettier-ignore
-// x9
-export type Squares = [
-  OX, OX, OX,
-  OX, OX, OX,
-  OX, OX, OX
-];
-
-export interface IBoard {
-  squares: Squares;
-  handleClick: (i: number) => OnClick;
-}
+import { IBoard } from "./index";
+import { Square } from "./Square";
 
 export class Board extends React.Component<IBoard> {
   render() {

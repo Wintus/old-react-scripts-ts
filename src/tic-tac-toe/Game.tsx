@@ -1,14 +1,6 @@
 import * as React from "react";
-import { Board, Squares } from "./Board";
-import { OX } from "./Square";
-
-export type OnClick = () => void;
-
-interface IGameState {
-  history: Squares[];
-  step: number;
-  xIsNext: boolean;
-}
+import { Board } from "./Board";
+import { IGameState, OnClick, OX, Squares } from "./index";
 
 export const Players: [OX, OX] = ["O", "X"];
 
