@@ -1,20 +1,14 @@
 import * as React from "react";
+import { IOnClick } from "./Board";
 
-export class Square extends React.Component<{}, { value: "X" | "O" | null }> {
-  constructor(props: Readonly<{}>) {
-    super(props);
-    this.state = {
-      value: null
-    };
-  }
+export type Value = "X" | "O" | null;
 
+export class Square extends React.Component<{ value: Value } & IOnClick> {
   render() {
     return (
-      <button className="square" onClick={this.setX}>
-        {this.state.value}
+      <button className="square" onClick={this.props.onClick}>
+        {this.props.value}
       </button>
     );
   }
-
-  private setX = () => this.setState({ value: "X" });
 }
