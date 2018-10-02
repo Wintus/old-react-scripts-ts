@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ChangeEventHandler } from "react";
 import { Board } from "./Board";
 import { IGameState, OnClick, OX, Squares } from "./index";
 
@@ -23,6 +24,9 @@ export class Game extends React.Component<any, IGameState> {
 
     const { step, history } = this.state;
 
+    const onChange: ChangeEventHandler<HTMLInputElement> = event =>
+      this.jumpTo(event.target.valueAsNumber);
+
     return (
       <div className="game">
         <div className="game-board">
@@ -37,7 +41,7 @@ export class Game extends React.Component<any, IGameState> {
             value={step}
             min={0}
             max={history.length - 1}
-            onChange={event => this.jumpTo(event.target.valueAsNumber)}
+            onChange={onChange}
           />
           <ol>
             {history.map((_, move) => {
