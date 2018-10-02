@@ -30,23 +30,11 @@ export class Board extends React.Component<any, IBoard> {
       <div>
         <div className="status">{status}</div>
         <div className="board center-block">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
+          {this.state.squares.map((v, i) => (
+            <Square value={v} onClick={this.handleClick(i)} />
+          ))}
         </div>
       </div>
-    );
-  }
-
-  protected renderSquare(i: number) {
-    return (
-      <Square value={this.state.squares[i]} onClick={this.handleClick(i)} />
     );
   }
 
