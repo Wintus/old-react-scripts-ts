@@ -18,8 +18,12 @@ export class Board extends React.Component<any, IState> {
     };
   }
 
+  shouldComponentUpdate() {
+    return !Boolean(this.winner()); // no winner yet
+  }
+
   render() {
-    const winner = calculateWinner(this.state.squares);
+    const winner = this.winner();
     const status = winner
       ? `Winner: ${winner}`
       : `Next player: ${this.nextValue()}`;
@@ -28,7 +32,7 @@ export class Board extends React.Component<any, IState> {
       <div>
         <div className="status">{status}</div>
         <div className="board center-block">
-          {this.state.squares.map((v, i) => (
+          {this.squares().map((v, i) => (
             <Square value={v} onClick={this.handleClick(i)} />
           ))}
         </div>
@@ -38,13 +42,12 @@ export class Board extends React.Component<any, IState> {
 
   protected handleClick(i: number): OnClick {
     return () => {
-      const squares = [...this.state.squares]; // copy
-
       // guard: filled or game-over
-      if (squares[i] || calculateWinner(squares)) {
+      if (this.squares()[i] || this.winner()) {
         return;
       }
 
+      const squares = [...this.squares()]; // copy
       squares[i] = this.nextValue();
       this.setState({ squares, xIsNext: !this.state.xIsNext });
     };
@@ -52,6 +55,14 @@ export class Board extends React.Component<any, IState> {
 
   protected nextValue(): OX {
     return this.state.xIsNext ? "X" : "O";
+  }
+
+  protected squares() {
+    return this.state.squares;
+  }
+
+  protected winner() {
+    return calculateWinner(this.squares());
   }
 }
 
