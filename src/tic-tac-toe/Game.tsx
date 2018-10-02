@@ -66,11 +66,11 @@ export class Game extends React.Component<any, IGameState> {
       const squares = [...this.squares()] as Squares; // copy
       squares[i] = this.nextPlayer();
 
-      const h = this.history();
+      const history = this.history();
 
       this.setState({
-        history: [...h, squares],
-        step: h.length,
+        history: [...history, squares],
+        step: history.length,
         xIsNext: !this.state.xIsNext
       });
     };
