@@ -1,7 +1,20 @@
 import * as React from "react";
-import { Square } from "./Square";
+import { Square, Value } from "./Square";
 
-export class Board extends React.Component {
+export type OnClick = () => void;
+
+interface IBoard {
+  squares: Value[];
+}
+
+export class Board extends React.Component<any, IBoard> {
+  constructor(props: Readonly<any>) {
+    super(props);
+    this.state = {
+      squares: Array(9).fill(null)
+    };
+  }
+
   render() {
     const status = "Next player: X";
 
@@ -28,6 +41,14 @@ export class Board extends React.Component {
   }
 
   protected renderSquare(i: number) {
-    return <Square value={i} />;
+    return (
+      <Square value={this.state.squares[i]} onClick={this.handleClick(i)} />
+    );
   }
+
+  protected handleClick = (i: number) => () => {
+    const squares = [...this.state.squares]; // copy
+    squares[i] = "X";
+    this.setState({ squares });
+  };
 }
