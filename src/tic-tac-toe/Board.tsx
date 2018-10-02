@@ -1,12 +1,7 @@
 import * as React from "react";
+import { Square } from "./Square";
 
-class Square extends React.Component<{ value: number }> {
-  render() {
-    return <button className="square">{this.props.value}</button>;
-  }
-}
-
-class Board extends React.Component {
+export class Board extends React.Component {
   render() {
     const status = "Next player: X";
 
@@ -34,21 +29,5 @@ class Board extends React.Component {
 
   protected renderSquare(i: number) {
     return <Square value={i} />;
-  }
-}
-
-export class Game extends React.Component {
-  render() {
-    return (
-      <div className="game">
-        <div className="game-board">
-          <Board />
-        </div>
-        <div className="game-info">
-          <div>{/* status */}</div>
-          <ol>{/* TODO */}</ol>
-        </div>
-      </div>
-    );
   }
 }
