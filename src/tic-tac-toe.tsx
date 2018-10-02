@@ -1,16 +1,12 @@
 import * as React from "react";
 
-class Square extends React.Component {
+class Square extends React.Component<{ value: number }> {
   render() {
-    return <button className="square">{/* TODO */}</button>;
+    return <button className="square">{this.props.value}</button>;
   }
 }
 
 class Board extends React.Component {
-  renderSquare(i) {
-    return <Square />;
-  }
-
   render() {
     const status = "Next player: X";
 
@@ -34,6 +30,10 @@ class Board extends React.Component {
         </div>
       </div>
     );
+  }
+
+  protected renderSquare(i: number) {
+    return <Square value={i} />;
   }
 }
 
