@@ -9,6 +9,8 @@ interface IState {
   xIsNext: boolean;
 }
 
+const Players: [OX, OX] = ["O", "X"];
+
 export class Board extends React.Component<any, IState> {
   constructor(props: Readonly<any>) {
     super(props);
@@ -26,7 +28,7 @@ export class Board extends React.Component<any, IState> {
     const winner = this.winner();
     const status = winner
       ? `Winner: ${winner}`
-      : `Next player: ${this.nextValue()}`;
+      : `Next player: ${this.nextPlayer()}`;
 
     return (
       <div>
@@ -48,13 +50,13 @@ export class Board extends React.Component<any, IState> {
       }
 
       const squares = [...this.squares()]; // copy
-      squares[i] = this.nextValue();
+      squares[i] = this.nextPlayer();
       this.setState({ squares, xIsNext: !this.state.xIsNext });
     };
   }
 
-  protected nextValue(): OX {
-    return this.state.xIsNext ? "X" : "O";
+  protected nextPlayer(): OX {
+    return Players[Number(this.state.xIsNext)];
   }
 
   protected squares() {
