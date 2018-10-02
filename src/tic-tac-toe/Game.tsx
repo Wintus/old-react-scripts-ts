@@ -10,10 +10,6 @@ interface IGameState {
   xIsNext: boolean;
 }
 
-export interface IGameOver {
-  gameOver: boolean;
-}
-
 export const Players: [OX, OX] = ["O", "X"];
 
 export class Game extends React.Component<any, IGameState> {
@@ -38,7 +34,6 @@ export class Game extends React.Component<any, IGameState> {
         <div className="game-board">
           <Board
             squares={this.squares()}
-            gameOver={Boolean(winner)}
             handleClick={i => this.handleClick(i)}
           />
         </div>
