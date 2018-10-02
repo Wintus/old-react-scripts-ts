@@ -1,4 +1,5 @@
 import * as React from "react";
+import "./Board.css";
 import { Square, Value } from "./Square";
 
 export interface IOnClick {
@@ -19,17 +20,13 @@ export class Board extends React.Component<any, { squares: Value[] }> {
     return (
       <div>
         <div className="status">{status}</div>
-        <div className="board-row">
+        <div className="board center-block">
           {this.renderSquare(0)}
           {this.renderSquare(1)}
           {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
           {this.renderSquare(3)}
           {this.renderSquare(4)}
           {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
           {this.renderSquare(6)}
           {this.renderSquare(7)}
           {this.renderSquare(8)}

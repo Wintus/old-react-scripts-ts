@@ -1,0 +1,10 @@
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 2rem);
+    grid-auto-rows: 2rem;
+}
+
+/*TODO: centering block*/
+.center-block {
+    margin: 0 auto;
+}
