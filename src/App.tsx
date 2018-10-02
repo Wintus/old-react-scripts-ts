@@ -2,7 +2,7 @@ import * as React from "react";
 import "./App.css";
 
 import logo from "./logo.svg";
-import { Game } from "./tic-tac-toe";
+import { Game } from "./tic-tac-toe/Game";
 
 class App extends React.Component {
   render() {
