@@ -24,13 +24,15 @@ export class Game extends React.Component<any, IGameState> {
 
     const { step, history } = this.state;
 
+    const handleClick = (i: number) => this.handleClick(i);
+
     const onChange: ChangeEventHandler<HTMLInputElement> = event =>
       this.jumpTo(event.target.valueAsNumber);
 
     return (
       <div className="game">
         <div className="game-board">
-          <Board squares={this.squares()} handleClick={this.handleClick} />
+          <Board squares={this.squares()} handleClick={handleClick} />
         </div>
         <div className="game-info">
           <div className="status">{status}</div>
