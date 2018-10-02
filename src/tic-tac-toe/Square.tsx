@@ -1,5 +1,5 @@
 import * as React from "react";
-import { OnClick } from "./Board";
+import { OnClick } from "./Game";
 
 export type OX = "X" | "O" | null;
 
