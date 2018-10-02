@@ -26,10 +26,7 @@ export class Game extends React.Component<any, IGameState> {
     return (
       <div className="game">
         <div className="game-board">
-          <Board
-            squares={this.squares()}
-            handleClick={i => this.handleClick(i)}
-          />
+          <Board squares={this.squares()} handleClick={this.handleClick} />
         </div>
         <div className="game-info">
           <div className="status">{status}</div>
@@ -43,13 +40,16 @@ export class Game extends React.Component<any, IGameState> {
             onChange={event => this.jumpTo(event.target.valueAsNumber)}
           />
           <ol>
-            {history.map((_, move) => (
-              <li key={move}>
-                <button onClick={() => this.jumpTo(move)}>
-                  Go to {move === 0 ? "game start" : `move #${move}`}
-                </button>
-              </li>
-            ))}
+            {history.map((_, move) => {
+              const onClick = () => this.jumpTo(move);
+              return (
+                <li key={move}>
+                  <button onClick={onClick}>
+                    Go to {move === 0 ? "game start" : `move #${move}`}
+                  </button>
+                </li>
+              );
+            })}
           </ol>
         </div>
       </div>
