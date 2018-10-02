@@ -1,13 +1,13 @@
 import * as React from "react";
 import "./Board.css";
-import { Square, Value } from "./Square";
+import { OX, Square } from "./Square";
 
 export interface IOnClick {
   onClick: () => void;
 }
 
 interface IState {
-  squares: Value[];
+  squares: OX[];
   xIsNext: boolean;
 }
 
@@ -50,12 +50,12 @@ export class Board extends React.Component<any, IState> {
     this.setState({ squares, xIsNext: !this.state.xIsNext });
   };
 
-  protected nextValue(): Value {
+  protected nextValue(): OX {
     return this.state.xIsNext ? "X" : "O";
   }
 }
 
-function calculateWinner(squares: Value[]): Value {
+function calculateWinner(squares: OX[]): OX {
   const lines = [
     // -
     [0, 1, 2],
