@@ -39,6 +39,7 @@ export class Game extends React.Component<any, IGameState> {
         </div>
         <div className="game-info">
           <div className="status">{status}</div>
+          <div className="step">Step #{this.state.step}</div>
           <ol>
             {this.state.history.map((_, move) => (
               <li key={move}>
