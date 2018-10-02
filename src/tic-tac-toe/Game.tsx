@@ -6,6 +6,7 @@ export type OnClick = () => void;
 
 interface IGameState {
   history: Squares[];
+  step: number;
   xIsNext: boolean;
 }
 
@@ -21,6 +22,7 @@ export class Game extends React.Component<any, IGameState> {
     const squares = Array(9).fill(null) as Squares;
     this.state = {
       history: [squares],
+      step: 0,
       xIsNext: true // X first
     };
   }
@@ -42,7 +44,15 @@ export class Game extends React.Component<any, IGameState> {
         </div>
         <div className="game-info">
           <div className="status">{status}</div>
-          <ol>{/* TODO */}</ol>
+          <ol>
+            {this.state.history.map((_, move) => (
+              <li key={move}>
+                <button onClick={() => this.jumpTo(move)}>
+                  Go to {move === 0 ? "game start" : `move #${move}`}
+                </button>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     );
@@ -58,10 +68,12 @@ export class Game extends React.Component<any, IGameState> {
       const squares = [...this.squares()] as Squares; // copy
       squares[i] = this.nextPlayer();
 
-      const { history, xIsNext } = this.state;
+      const h = this.history();
+
       this.setState({
-        history: [...history, squares],
-        xIsNext: !xIsNext
+        history: [...h, squares],
+        step: h.length,
+        xIsNext: !this.state.xIsNext
       });
     };
   }
@@ -70,13 +82,25 @@ export class Game extends React.Component<any, IGameState> {
     return Players[Number(this.state.xIsNext)];
   }
 
+  protected history() {
+    const last = this.state.step + 1;
+    return this.state.history.slice(0, last);
+  }
+
   protected squares() {
-    const [current] = this.state.history.slice(-1);
+    const [current] = this.history().slice(-1);
     return current;
   }
 
   protected winner() {
     return calculateWinner(this.squares());
+  }
+
+  protected jumpTo(step: number) {
+    this.setState({
+      step,
+      xIsNext: step % 2 === 0
+    });
   }
 }
 
