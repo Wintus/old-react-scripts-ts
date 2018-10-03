@@ -3,15 +3,22 @@ import { Square, Value } from "./Square";
 
 export type OnClick = () => void;
 
+// prettier-ignore
+type Squares = [
+  Value, Value, Value,
+  Value, Value, Value,
+  Value, Value, Value
+  ];
+
 interface IBoard {
-  squares: Value[];
+  squares: Squares;
 }
 
 export class Board extends React.Component<any, IBoard> {
   constructor(props: Readonly<any>) {
     super(props);
     this.state = {
-      squares: Array(9).fill(null)
+      squares: Array(9).fill(null) as Squares
     };
   }
 
@@ -47,7 +54,7 @@ export class Board extends React.Component<any, IBoard> {
   }
 
   protected handleClick = (i: number) => () => {
-    const squares = [...this.state.squares]; // copy
+    const squares = [...this.state.squares] as Squares; // copy
     squares[i] = "X";
     this.setState({ squares });
   };
