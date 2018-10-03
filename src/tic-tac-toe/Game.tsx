@@ -17,6 +17,8 @@ interface IGameState {
   xIsNext: boolean;
 }
 
+export const Players: [OX, OX] = ["O", "X"];
+
 export class Game extends React.Component<any, IGameState> {
   constructor(props: Readonly<any>) {
     super(props);
@@ -54,6 +56,6 @@ export class Game extends React.Component<any, IGameState> {
   }
 
   private nextPlayer(): OX {
-    return this.state.xIsNext ? "X" : "O";
+    return Players[Number(this.state.xIsNext)];
   }
 }
