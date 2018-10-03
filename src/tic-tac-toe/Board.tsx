@@ -38,7 +38,7 @@ export class Board extends React.Component<any, IBoard> {
     );
   }
 
-  protected handleClick = (i: number) => () => {
+  protected handleClick: (i: number) => OnClick = i => () => {
     const squares = [...this.state.squares] as Squares; // copy
     squares[i] = "X";
     this.setState({ squares });
