@@ -8,16 +8,12 @@ interface IBoard {
   handleClick: (i: number) => OnClick;
 }
 
-export class Board extends React.Component<IBoard> {
-  render() {
-    return (
-      <div>
-        <div className="board center-block">
-          {this.props.squares.map((v, i) => (
-            <Square value={v} onClick={this.props.handleClick(i)} />
-          ))}
-        </div>
-      </div>
-    );
-  }
-}
+export const Board = ({ squares, handleClick }: IBoard) => (
+  <div>
+    <div className="board center-block">
+      {squares.map((v, i) => (
+        <Square value={v} onClick={handleClick(i)} />
+      ))}
+    </div>
+  </div>
+);
