@@ -13,6 +13,7 @@ export type Squares = [
 
 interface IGameState {
   squares: Squares;
+  xIsNext: boolean;
 }
 
 export class Game extends React.Component<any, IGameState> {
@@ -20,12 +21,13 @@ export class Game extends React.Component<any, IGameState> {
     super(props);
 
     this.state = {
-      squares: Array(9).fill(null) as Squares
+      squares: Array(9).fill(null) as Squares,
+      xIsNext: true // X first
     };
   }
 
   render() {
-    const status = "Next player: X";
+    const status = `Next player: ${this.nextPlayer()}`;
 
     return (
       <div className="game">
@@ -42,11 +44,15 @@ export class Game extends React.Component<any, IGameState> {
 
   protected handleClick: (i: number) => OnClick = i => () => {
     const squares = [...this.squares()] as Squares; // copy
-    squares[i] = "X";
-    this.setState({ squares });
+    squares[i] = this.nextPlayer();
+    this.setState({ squares, xIsNext: !this.state.xIsNext });
   };
 
   private squares() {
     return this.state.squares;
+  }
+
+  private nextPlayer(): Value {
+    return this.state.xIsNext ? "X" : "O";
   }
 }
