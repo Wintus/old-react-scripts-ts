@@ -1,15 +1,15 @@
 import * as React from "react";
 import { Board } from "./Board";
 import "./Game.css";
-import { Value } from "./Square";
+import { OX } from "./Square";
 
 export type OnClick = () => void;
 
 // prettier-ignore
 export type Squares = [
-  Value, Value, Value,
-  Value, Value, Value,
-  Value, Value, Value
+  OX, OX, OX,
+  OX, OX, OX,
+  OX, OX, OX
   ];
 
 interface IGameState {
@@ -53,7 +53,7 @@ export class Game extends React.Component<any, IGameState> {
     return this.state.squares;
   }
 
-  private nextPlayer(): Value {
+  private nextPlayer(): OX {
     return this.state.xIsNext ? "X" : "O";
   }
 }

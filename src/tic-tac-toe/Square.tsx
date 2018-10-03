@@ -1,10 +1,10 @@
 import * as React from "react";
 import { OnClick } from "./Game";
 
-export type Value = "X" | "O" | null;
+export type OX = "X" | "O" | null;
 
 interface ISquare {
-  value: Value;
+  value: OX;
   onClick: OnClick;
 }
 
