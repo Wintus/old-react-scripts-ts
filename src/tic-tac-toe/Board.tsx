@@ -9,11 +9,9 @@ interface IBoard {
 }
 
 export const Board = ({ squares, handleClick }: IBoard) => (
-  <div>
-    <div className="board center-block">
-      {squares.map((v, i) => (
-        <Square value={v} onClick={handleClick(i)} />
-      ))}
-    </div>
+  <div className="board center-block">
+    {squares.map((v, i) => (
+      <Square value={v} onClick={handleClick(i)} />
+    ))}
   </div>
 );
