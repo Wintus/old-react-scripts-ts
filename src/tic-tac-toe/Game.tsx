@@ -34,15 +34,41 @@ export class Game extends React.Component<any, IGameState> {
   }
 
   render() {
+    const { history, step } = this.state;
+
     const winner = this.winner();
     const status = winner
       ? `Winner: ${winner}`
       : `Next player: ${this.nextPlayer()}`;
-
-    const { history, step } = this.state;
+    const player = <div className="status">{status}</div>;
 
     const onChange: ChangeEventHandler<HTMLInputElement> = event =>
       this.jumpTo(event.target.valueAsNumber);
+    const slider = (
+      <input
+        type="range"
+        name="slider"
+        value={step}
+        min={0}
+        max={history.length - 1}
+        onChange={onChange}
+      />
+    );
+
+    const travels = (
+      <ol>
+        {history.map((_, move) => {
+          const onClick = () => this.jumpTo(move);
+          return (
+            <li key={move}>
+              <button onClick={onClick}>
+                Go to {move === 0 ? "game start" : `move #${move}`}
+              </button>
+            </li>
+          );
+        })}
+      </ol>
+    );
 
     return (
       <div className="game">
@@ -50,28 +76,10 @@ export class Game extends React.Component<any, IGameState> {
           <Board squares={this.squares()} handleClick={this.handleClick} />
         </div>
         <div className="game-info">
-          <div className="status">{status}</div>
+          {player}
           <div className="step">Step #{step}</div>
-          <input
-            type="range"
-            name="slider"
-            value={step}
-            min={0}
-            max={history.length - 1}
-            onChange={onChange}
-          />
-          <ol>
-            {history.map((_, move) => {
-              const onClick = () => this.jumpTo(move);
-              return (
-                <li key={move}>
-                  <button onClick={onClick}>
-                    Go to {move === 0 ? "game start" : `move #${move}`}
-                  </button>
-                </li>
-              );
-            })}
-          </ol>
+          {slider}
+          {travels}
         </div>
       </div>
     );
