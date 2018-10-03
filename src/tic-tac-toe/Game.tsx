@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ChangeEventHandler } from "react";
 import { Board } from "./Board";
+import "./Game.css";
 import { IGameState, OnClick, OX, Squares } from "./index";
 
 export const Players: [OX, OX] = ["O", "X"];
