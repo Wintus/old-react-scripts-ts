@@ -46,13 +46,16 @@ export class Game extends React.Component<any, IGameState> {
         <div className="game-info">
           <div className="status">{status}</div>
           <ol>
-            {this.state.history.map((_, move) => (
-              <li key={move}>
-                <button onClick={() => this.jumpTo(move)}>
-                  Go to {move === 0 ? "game start" : `move #${move}`}
-                </button>
-              </li>
-            ))}
+            {this.state.history.map((_, move) => {
+              const onClick = () => this.jumpTo(move);
+              return (
+                <li key={move}>
+                  <button onClick={onClick}>
+                    Go to {move === 0 ? "game start" : `move #${move}`}
+                  </button>
+                </li>
+              );
+            })}
           </ol>
         </div>
       </div>
