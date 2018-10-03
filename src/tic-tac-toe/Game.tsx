@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Board } from "./Board";
+import "./Game.css";
 import { Value } from "./Square";
 
 export type OnClick = () => void;
